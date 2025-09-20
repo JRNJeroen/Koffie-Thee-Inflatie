@@ -79,9 +79,8 @@ p_thee_prijs <- ggplot(thee_cpi_plot, aes(x = label, y = cpi, group = 1)) +
     theme_minimal() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
   
-p_thee_prijs
-
 ############ WRITE TO DATABASE
 
 table_to_db(output_table, db_name, db_table_name, overwrite)
+
 
