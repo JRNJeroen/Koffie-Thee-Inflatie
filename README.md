@@ -1,6 +1,6 @@
 # Koffie-Thee-Inflatie
 
-# Koffie-Thee-Inflatie
+
 
 ## Installed packages
 
