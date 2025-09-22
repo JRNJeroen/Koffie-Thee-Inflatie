@@ -37,12 +37,12 @@ year_quarter_to_date <- function(year_input, quarter_input, last_day = FALSE) {
   return(return_date)
 }
 
-cpi_kwartaal_mutatie <- function(table, product, start_d, end_d) {
+cpi_kwartaal_mutatie <- function(table, product_list, start_d, end_d) {
   
   # compute table mean CPI per quarter for product
   quarterly_cpi <- table %>%
     filter(
-      Bestedingscategorieen == product,
+      Bestedingscategorieen %in% product_list,
       str_sub(Perioden, 7, 8) != "00"            # periods ending on 00 are year entries, not month
     ) %>%
     add_year_quarter_date() %>%                  # adds columns: year, quarter and date (as first day of month)
@@ -50,7 +50,7 @@ cpi_kwartaal_mutatie <- function(table, product, start_d, end_d) {
       date >= start_d,
       date <= end_d
     ) %>%
-    group_by(year, quarter) %>% 
+    group_by(year, quarter, Bestedingscategorieen) %>% 
     summarize(cpi = mean(CPI_1), .groups = "drop") %>%
     mutate(q_start_date = year_quarter_to_date(year, quarter, last_day = FALSE))
   
@@ -60,11 +60,11 @@ cpi_kwartaal_mutatie <- function(table, product, start_d, end_d) {
       q_start_date = q_start_date %m+% months(3),
       cpi_previous_quarter = cpi
     ) %>%
-    select(q_start_date, cpi_previous_quarter)
+    select(q_start_date, cpi_previous_quarter, Bestedingscategorieen)
   
   # join the tables and compute the change in CPI
   result <- quarterly_cpi %>%
-    left_join(previous_cpi, by = "q_start_date") %>%
+    left_join(previous_cpi, by = c("q_start_date", "Bestedingscategorieen")) %>%
     mutate(cpi_mutatie = (cpi - cpi_previous_quarter) / cpi * 100)
   
   return(result)
