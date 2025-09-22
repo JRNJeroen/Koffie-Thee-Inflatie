@@ -54,7 +54,7 @@ In `main.R` worden een aantal configuratie-instellingen gedefinieerd die het pro
 - **KoffieCPI.png** – de grafiek met de kwartaal-CPI van koffie.  
 - **TheeCPI.png** – de grafiek met de kwartaal-CPI van thee.
 - **KoffieCPImutatie.png** – de grafiek met de kwartaal-CPI mutatie van koffie.  
-- **TheeCPImutatie.png** – de grafiek met de kwartaal-CPI mutatievan thee.  
+- **TheeCPImutatie.png** – de grafiek met de kwartaal-CPI mutatie van thee.  
 - **Casus 2.md** – de uitwerking van Casus 2.  
 
 ## Toelichting tools
